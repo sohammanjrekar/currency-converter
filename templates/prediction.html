@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exchange Rate Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            background-color: #1e272e;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 60px auto;
+            padding: 30px;
+            text-align: center;
+            background-color: #2f3640;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(255, 87, 50, 0.4);
+        }
+
+        h2 {
+            color: #FF5732;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 20px;
+            line-height: 1.6;
+        }
+
+        .recommendation {
+            font-weight: 900;
+            font-size: 22px;
+        }
+
+        .btn-back {
+            display: inline-block;
+            margin-top: 30px;
+            text-decoration: none;
+            background-color: #34495e;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 700;
+            transition: background 0.3s ease;
+        }
+
+        .btn-back:hover {
+            background-color: #FF5732;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Exchange Rate Forecast</h2>
+
+        {% if result %}
+            <p>{{ result }}</p>
+            <p class="recommendation" 
+               style="color: {% if 'BUY' in recommendation %}limegreen{% else %}#e74c3c{% endif %};">
+                {{ recommendation }}
+            </p>
+        {% else %}
+            <p>No prediction data available.</p>
+        {% endif %}
+{% if accuracy %}
+    <p>Directional Accuracy: {{ accuracy|round(2) }}%</p>
+    <p>Precision (UP): {{ precision|round(2) }}%</p>
+    <p>Recall (UP): {{ recall|round(2) }}%</p>
+{% endif %}
+
+        <a href="/" class="btn-back">← Back to Converter</a>
+    </div>
+</body>
+</html>
